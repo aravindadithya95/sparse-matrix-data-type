@@ -1,7 +1,7 @@
 public class SparseMatrix {
 
     private MatrixEntry[] array;
-	private int numEntries;
+    private int numEntries;
 
     private final int m;
     private final int n;
@@ -15,113 +15,111 @@ public class SparseMatrix {
     }
 
     public SparseMatrix(String str) {
-    	while ( str.startsWith("0") ) {
-    		str = str.replaceFirst("0r\\d+c\\d+(, )?", "");
-    	}
-    	str = str.replaceAll(", 0r\\d+c\\d+", "");
+      	while (str.startsWith("0")) {
+      		  str = str.replaceFirst("0r\\d+c\\d+(, )?", "");
+      	}
+      	str = str.replaceAll(", 0r\\d+c\\d+", "");
 
-    	String[] x = str.split(", ");
-    	int len = x.length;
+      	String[] x = str.split(", ");
+      	int len = x.length;
 
-		this.numEntries = 0;
-		this.array = new MatrixEntry[len];
+  		  	this.numEntries = 0;
+    		this.array = new MatrixEntry[len];
 
-		int nRows = 0, nCols = 0;
-		for (int i = 0; i < len; i ++) {
-			int row = Integer.parseInt( x[i].replaceAll(".*r|c.*", "") );
-			int col = Integer.parseInt( x[i].replaceFirst(".*c", "") );
-			int val = Integer.parseInt( x[i].replaceFirst("r.*", "") );
-			insertValue(val, row, col);
+    		int nRows = 0, nCols = 0;
+    		for (int i = 0; i < len; i ++) {
+      			int row = Integer.parseInt( x[i].replaceAll(".*r|c.*", "") );
+      			int col = Integer.parseInt( x[i].replaceFirst(".*c", "") );
+      			int val = Integer.parseInt( x[i].replaceFirst("r.*", "") );
+      			insertValue(val, row, col);
 
-			nRows = Math.max(nRows, row);
-			nCols = Math.max(nCols, col);
-		}
+      			nRows = Math.max(nRows, row);
+      			nCols = Math.max(nCols, col);
+    		}
 
-		this.m = nRows;
-    	this.n = nCols;
+    		this.m = nRows;
+      		this.n = nCols;
     }
 
     public SparseMatrix(char matrix) {
-		int count = 0;
+      	switch (matrix) {
+			case 'C':
+					this.m = 5;
+					this.n = 6;
+					this.numEntries = 0;
+					this.array = new MatrixEntry[15];
 
-    	switch (matrix) {
-    	case 'C':
-    		this.m = 5;
-    		this.n = 6;
-    		this.numEntries = 0;
-    		this.array = new MatrixEntry[15];
+					for (int i = 1; i <= 5; i ++) {
+						for (int j = 1; j <= 6; j ++) {
+							if ((i + j) % 2 == 0) {
+								insertValue(i * j, i, j);
+							}
+						}
+					}
+					break;
 
-    		for (int i = 1; i <= 5; i ++) {
-    			for (int j = 1; j <= 6; j ++) {
-    				if ((i + j) % 2 == 0) {
-    					insertValue(i * j, i, j);
-    				}
-     			}
-    		}
-    		break;
+			case 'D':
+					this.m = 6;
+					this.n = 5;
+					this.numEntries = 0;
+					this.array = new MatrixEntry[12];
 
-    	case 'D':
-    		this.m = 6;
-    		this.n = 5;
-			this.numEntries = 0;
-    		this.array = new MatrixEntry[12];
+					for (int i = 1; i <= 6; i ++) {
+						for (int j = 1; j <= 5; j ++) {
+								if ((i * j) % 4 == 0) {
+									insertValue(i + j, i, j);
+								}
+						}
+					}
+					break;
 
-    		for (int i = 1; i <= 6; i ++) {
-    			for (int j = 1; j <= 5; j ++) {
-    				if ((i * j) % 4 == 0) {
-    					insertValue(i + j, i, j);
-    				}
-    			}
-    		}
-    		break;
+			case 'E':
+				this.m = this.n = 200;
+				this.numEntries = 0;
+				this.array = new MatrixEntry[4000];
 
-    	case 'E':
-    		this.m = this.n = 200;
-    		this.numEntries = 0;
-    		this.array = new MatrixEntry[4000];
+				for (int i = 1; i <= 200; i ++) {
+						for (int j = 1; j <= 200; j ++) {
+							if (i % 10 == 0) {
+								insertValue(i + (2 * j), i, j);
+							}
+						}
+				}
+				break;
 
-    		for (int i = 1; i <= 200; i ++) {
-    			for (int j = 1; j <= 200; j ++) {
-    				if (i % 10 == 0) {
-    					insertValue(i + (2 * j), i, j);
-    				}
-    			}
-    		}
-    		break;
+			case 'F':
+				this.m = 200;
+				this.n = 1;
+				this.numEntries = 0;
+				this.array = new MatrixEntry[40];
 
-    	case 'F':
-    		this.m = 200;
-    		this.n = 1;
-    		this.numEntries = 0;
-    		this.array = new MatrixEntry[40];
+				for (int i = 1; i <= 200; i ++) {
+					if (i % 5 == 0) {
+						insertValue(5 * i, i, 1);
+					}
+				}
+				break;
 
-    		for (int i = 1; i <= 200; i ++) {
-    			if (i % 5 == 0) {
-    				insertValue(5 * i, i, 1);
-    			}
-    		}
-    		break;
+			case 'G':
+				this.m = 30000;
+				this.n = 30000;
+				this.numEntries = 0;
+				this.array = new MatrixEntry[313925];
 
-    	case 'G':
-    		this.m = 30000;
-    		this.n = 30000;
-			this.numEntries = 0;
-    		this.array = new MatrixEntry[313925];
+				for (int i = 1; i <= 30000; i ++) {
+					for (int j = 1; j <= 30000; j ++) {
+						if (i % j == 0) {
+							insertValue(i + j, i, j);
+						}
+					}
+				}
+				break;
 
-    		for (int i = 1; i <= 30000; i ++) {
-    			for (int j = 1; j <= 30000; j ++) {
-    				if (i % j == 0) {
-    					insertValue(i + j, i, j);
-    				}
-     			}
-    		}
-    		break;
-
-    	default:
-    		this.m = this.n = this.numEntries = 0;
-    		this.array = new MatrixEntry[0];
-    		break;
-    	}
+			default:
+				this.m = this.n = this.numEntries = 0;
+				this.array = new MatrixEntry[0];
+				break;
+      	}
     }
 
 	public void print() {
