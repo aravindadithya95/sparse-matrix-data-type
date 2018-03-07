@@ -1,7 +1,5 @@
-package branch1;
-
 public class TestCases {
-///*
+
 	public static void main(String[] args) {
 		// Initialization
 		SparseMatrix A = new SparseMatrix("-5r4c4, 5r1c4, 2r2c2, 5r3c1, -3r3c2, 6r4c2, -7r2c3, 3r1c1");
@@ -58,7 +56,7 @@ public class TestCases {
 		endTime = System.nanoTime();
 		System.out.println("Running time: " + (endTime - startTime) + " ns or " + (endTime - startTime) / 1000000000 + " s\n");
 		startTime = System.nanoTime();
-		
+
 		// Add
 		System.out.println("The matrix A + A:");
 		A.add(A).print();
@@ -95,7 +93,7 @@ public class TestCases {
 		endTime = System.nanoTime();
 		System.out.println("Running time: " + (endTime - startTime) + " ns\n");
 		startTime = System.nanoTime();
-		
+
 		// Subtract
 		System.out.println("The matrix A - A:");
 		A.subtract(A).print();
@@ -132,7 +130,7 @@ public class TestCases {
 		endTime = System.nanoTime();
 		System.out.println("Running time: " + (endTime - startTime) + " ns\n");
 		startTime = System.nanoTime();
-		
+
 		// Scalar Multiply and Subtract
 		System.out.println("The matrix 5A - A:");
 		A.scalarMultiply(5).subtract(A).print();
@@ -169,7 +167,7 @@ public class TestCases {
 		endTime = System.nanoTime();
 		System.out.println("Running time: " + (endTime - startTime) + " ns\n");
 		startTime = System.nanoTime();
-		
+
 		// Multiplication
 		System.out.println("The matrix B * C^T:");
 		B.multiply(CT).print();
@@ -191,7 +189,7 @@ public class TestCases {
 		endTime = System.nanoTime();
 		System.out.println("Running time: " + (endTime - startTime) + " ns\n");
 		startTime = System.nanoTime();
-		
+
 		// Multiply A and E with itself
 		System.out.println("The matrix A * A:");
 		A.multiply(A).print();
@@ -203,7 +201,7 @@ public class TestCases {
 		endTime = System.nanoTime();
 		System.out.println("Running time: " + (endTime - startTime) + " ns\n");
 		startTime = System.nanoTime();
-		
+
 		// Power
 		System.out.println("The matrix A^5:");
 		A.power(5).print();
@@ -225,9 +223,9 @@ public class TestCases {
 		endTime = System.nanoTime();
 		System.out.println("Running time: " + (endTime - startTime) + " ns\n");
 		startTime = System.nanoTime();
-		
-		
-		
+
+
+
 		// Multiply with its transpose
 		System.out.println("The matrix A * A^T:");
 		A.multiply(AT).print();
@@ -289,29 +287,4 @@ public class TestCases {
 		endTime = System.nanoTime();
 		System.out.println("Running time: " + (endTime - startTime) + " ns\n");
 	}
-//*/
-/*
-	public static void main(String[] args) {
-		SparseMatrix A = new SparseMatrix("-5r4c4, 5r1c4, 2r2c2, 5r3c1, -3r3c2, 6r4c2, -7r2c3, 3r1c1");
-		SparseMatrix B = new SparseMatrix("1r4c1, 1r1c1, 1r2c6, 1r2c2, 1r3c3, 1r4c4, 1r1c5");
-		SparseMatrix C = new SparseMatrix('C');
-		SparseMatrix D = new SparseMatrix('D');
-		SparseMatrix E = new SparseMatrix('E');
-		SparseMatrix F = new SparseMatrix('F');
-		SparseMatrix G = new SparseMatrix('G');
-
-		long start, end;
-
-		A.print();
-		A.transpose().print();
-		F.print();
-		E.print();
-		G.print();
-		start = System.nanoTime();
-		G.transpose().print();
-		end = System.nanoTime();
-
-		System.out.println((end - start) / 1000000000);
-	}
-	*/
 }

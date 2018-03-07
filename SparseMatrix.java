@@ -1,5 +1,3 @@
-package branch1;
-
 public class SparseMatrix {
 
     private MatrixEntry[] array;
